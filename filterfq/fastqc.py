@@ -14,7 +14,7 @@ from universal import checkPathExists, makeSurePathExists,checkFilesExist
 class fastqcPileup:
 	""" Wrapper for running fastqc """
 	def __init__(self):
-		self.logger = logging.getLogger('timestamp')
+		self.logger = logging.getLogger("timestamp")
 		
 		self.checkFastQC()
 
@@ -38,6 +38,13 @@ class fastqcPileup:
 		makeSurePathExists(outDir)
 
 		os.system("fastqc -a %s -o %s %s 2>/dev/null" % (adapters, outDir, " ".join()))
+		os.system("ls %s/*_fastqc.zip|xargs -t -i unzip -u -d %s {}" % (outDir, outDir))
+
+class statFastQCResult:
+	""" Stat result of FastQC """
+	def __init__(self):
+		self.logger = logging.getLogger("timestamp")
+		
 		
 		
 		
