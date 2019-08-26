@@ -9,7 +9,8 @@ import sys
 import subprocess
 import logging
 
-from universal import checkPathExists, makeSurePathExists,checkFilesExist
+import numpy as np
+from filterfq.universal import checkPathExists, makeSurePathExists, checkFilesExist
 
 class fastqcPileup:
 	""" Wrapper for running fastqc """
@@ -32,20 +33,39 @@ class fastqcPileup:
 
 
 	def run(self, fqs, adapters, outDir):
-		
-		checkFilesExist(fqs, adapters)
+		self.logger.error(fqs)
+		self.logger.error(adapters)
+		self.logger.error(outDir)
+		checkFilesExist([fqs, adapters])
+#		checkFilesExist(adapters)
 
 		makeSurePathExists(outDir)
 
-		os.system("fastqc -a %s -o %s %s 2>/dev/null" % (adapters, outDir, " ".join()))
+		os.system("fastqc -a %s -o %s %s 2>/dev/null" % (adapters, outDir, " ".join(fqs)))
 		os.system("ls %s/*_fastqc.zip|xargs -t -i unzip -u -d %s {}" % (outDir, outDir))
+		statFastQCResult(outDir)
+		
 
 class statFastQCResult:
 	""" Stat result of FastQC """
-	def __init__(self):
+	def __init__(self, outDir):
+		self.fastqc_data = outDir + "/*_fastqc/fastqc_data.txt"
+		self.out_stat = outDir + "/stats_fastqc_result.xls"
 		self.logger = logging.getLogger("timestamp")
+		nFiles = os.popen("ls %s|wc -l" % (self.fastqc_data)).read().strip()
+		self.stats = pd.DataFrame(np.zeros((nFiles, 4)))
+
+		self.statFastQC()
+
+	def statFastQC(self):
+		self.stats.index = [os.path.splitext(i.split("\t")[1])[0] for i in os.popen("grep Filename %s" % (self.fastqc_data)).read().splitlines()]
+		print(self.stats.index)
+		header = ['Encoding', 'Total Sequences', 'Sequence length', '%GC']
+		self.stats.columns = header
+		for k in header:
+#			set(os.popen('cat %s/*_fastqc/fastqc_data.txt|grep "'+k+'"').read().splitlines())
+			self.stats[k] = [i.split("\t")[1] for i in os.popen('grep "'+k+'" %s' % (self.fastqc_data)).read().splitlines()]
 		
-		
-		
+		self.stats.to_csv(self.out_stat, sep="\t")
 		
 

@@ -8,6 +8,7 @@
 import os
 import sys
 import logging
+import errno
 
 
 def checkPathExists(path):
@@ -27,6 +28,7 @@ def makeSurePathExists(path):
 		if exception.errno != errno.EEXIST:
 			logger = logging.getLogger("timestamp")
 			logger.error("Path does not exists: " + path + "\n")
+			sys.exit(1)
 
 
 def checkFilesExist(inputFiles):
@@ -44,9 +46,11 @@ def checkFilesExist(inputFiles):
 					else:
 						logger = logging.getLogger("timestamp")
 						logger.error("File does not exists: " + f + "\n")
+						sys.exit(1)
 		else:
 			logger = logging.getLogger("timestamp")
 			logger.error("File does not exists: " + inputFiles + "\n")
+			sys.exit(1)
 
 	
 def checkFileExists(inputFile):
