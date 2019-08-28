@@ -9,25 +9,33 @@ import os
 import sys
 import logging
 import errno
+import re
 
 
 def checkPathExists(path):
 	"""Check if path is exists"""
 	if not os.path.exists(path):
 		logger = logging.getLogger("timestamp")
-		logger.error("Directory does not exists: " + path + "\n")
+		logger.error("Directory does not exists: %s.\n" % (path))
 		sys.exit(1)
 
 def makeSurePathExists(path):
 	"""Check if path is exists, if not create path"""
-#	if not path:
-#		return
+	if not path:
+		return
+	if re.search('[^/]', path):
+		pass
+	elif re.match('[^\./]', path):
+		path = os.getcwd() + "/" + path
+	else:
+		logger.error("Path seems weird to me, please check %s.\n" % (path))
+		sys.exit()
 	try:
 		os.makedirs(path)
 	except OSError as exception:
 		if exception.errno != errno.EEXIST:
 			logger = logging.getLogger("timestamp")
-			logger.error("Path does not exists: " + path + "\n")
+			logger.error("Path does not exists: %s.\n" % (path))
 			sys.exit(1)
 
 

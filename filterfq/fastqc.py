@@ -10,6 +10,7 @@ import subprocess
 import logging
 
 import numpy as np
+import pandas as pd
 from filterfq.universal import checkPathExists, makeSurePathExists, checkFilesExist
 
 class fastqcPileup:
@@ -37,12 +38,12 @@ class fastqcPileup:
 		self.logger.error(adapters)
 		self.logger.error(outDir)
 		checkFilesExist([fqs, adapters])
-#		checkFilesExist(adapters)
 
 		makeSurePathExists(outDir)
 
 		os.system("fastqc -a %s -o %s %s 2>/dev/null" % (adapters, outDir, " ".join(fqs)))
 		os.system("ls %s/*_fastqc.zip|xargs -t -i unzip -u -d %s {}" % (outDir, outDir))
+		self.logger.error("skipped fastqc part")
 		statFastQCResult(outDir)
 		
 
@@ -53,13 +54,13 @@ class statFastQCResult:
 		self.out_stat = outDir + "/stats_fastqc_result.xls"
 		self.logger = logging.getLogger("timestamp")
 		nFiles = os.popen("ls %s|wc -l" % (self.fastqc_data)).read().strip()
-		self.stats = pd.DataFrame(np.zeros((nFiles, 4)))
+		self.stats = pd.DataFrame(np.zeros((int(nFiles), 4)))
 
 		self.statFastQC()
 
 	def statFastQC(self):
 		self.stats.index = [os.path.splitext(i.split("\t")[1])[0] for i in os.popen("grep Filename %s" % (self.fastqc_data)).read().splitlines()]
-		print(self.stats.index)
+#		self.logger.error(self.stats.index)
 		header = ['Encoding', 'Total Sequences', 'Sequence length', '%GC']
 		self.stats.columns = header
 		for k in header:
