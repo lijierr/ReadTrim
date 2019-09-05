@@ -18,20 +18,7 @@ class fastqcPileup:
 	def __init__(self):
 		self.logger = logging.getLogger("timestamp")
 		
-		self.checkFastQC()
-
-		
-	def checkFastQC(self):
-		""" Check if FastQC is in system path! """
-		
-		# Assume that a successful fastqc -h returns and anything
-		# else returns something non-zero
-		try:
-			subprocess.call(['fastqc', '-h'], stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT)
-		except:
-			self.logger.error(" [Error] Make sure FastQC is in system path.")
-			sys.exit(1)
-
+		self.__checkFastQC()
 
 	def run(self, fqs, adapters, outDir):
 		self.logger.error(fqs)
@@ -40,12 +27,21 @@ class fastqcPileup:
 		checkFilesExist([fqs, adapters])
 
 		makeSurePathExists(outDir)
-
 		os.system("fastqc -a %s -o %s %s 2>/dev/null" % (adapters, outDir, " ".join(fqs)))
 		os.system("ls %s/*_fastqc.zip|xargs -t -i unzip -u -d %s {}" % (outDir, outDir))
 		self.logger.error("skipped fastqc part")
 		statFastQCResult(outDir)
-		
+	
+	def __checkFastQC(self):
+		""" Check if FastQC is in system path. """
+		# Assume that a successful fastqc -h returns and anything
+		# else returns something non-zero
+		try:
+			subprocess.run(['fastqc', '-h'], stdout=open(os.devnull, "w"), stderr=subprocess.STDOUT)
+		except:
+			self.logger.error(" [Error] Make sure FastQC is in system path.")
+			sys.exit(1)
+	
 
 class statFastQCResult:
 	""" Stat result of FastQC """
