@@ -54,29 +54,31 @@ class qc_fastq:
 
 	def fastqc(self):
 		self.logger.info('Start to qc fastq using FastQC.')
-		outdir = gt_path.sure_path_exist(
+		self.fastqc_outdir = gt_path.sure_path_exist(
 							self.outdir,
 							'%s/fastqc' % self.outdir, \
 							'%s/fastqc/%s' % (self.outdir, self.sample_name)
 							)[2]
 
-		cmd = 'fastqc -o %s' % outdir
+		cmd = 'fastqc -o %s' % self.fastqc_outdir
 		if self.adapter:cmd += ' -a %s' % self.adapter
 		if self.fq1:cmd += ' %s' % self.fq1
 		if self.fq2:cmd += ' %s' % self.fq2
 		cmd += ' 2>/dev/null'
-		gt_exe.cmd_exe(cmd, shell=True)
+		gt_exe.exe_cmd(cmd, shell=True)
 
-		cmd = 'ls %s/*_fastqc.zip|xargs -t -i unzip -u -d %s {}' % (outdir, outdir)
-		gt_exe.cmd_exe(cmd, shell=True)
+		cmd = 'ls %s/*_fastqc.zip|xargs -t -i unzip -u -d %s {}' % \
+				(self.fastqc_outdir, self.fastqc_outdir)
+		gt_exe.exe_cmd(cmd, shell=True)
 		self.logger.info('End to qc fastq using FastQC.')
 		self._stat_fastqc_result()
 
 	def _stat_fastqc_result(self):
 		self.fastqc_data = '%s/%s*_fastqc/fastqc_data.txt' % \
-							(outdir, gt_file.get_seqfile_prefix)
+							(self.fastqc_outdir, gt_file.get_seqfile_prefix)
 
-		self.out_stat = '%s/%s.fastqc.stat.xls' % (outdir, self.sample_name)
+		self.out_stat = '%s/%s.fastqc.stat.xls' % \
+						(self.fastqc_outdir, self.sample_name)
 
 		header = ['Encoding', 'Total Sequences', 'Sequence length', '%GC']
 
