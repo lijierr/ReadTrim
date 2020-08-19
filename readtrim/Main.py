@@ -13,7 +13,7 @@ import pandas as pd
 import logging
 
 logger = logging.getLogger(__name__)
-from biosut import gt_file,gt_path
+from biosut import gt_file,gt_exe,gt_path
 
 from readtrim.version import Version
 from readtrim.qc_fastq import qc_fastq
@@ -25,10 +25,10 @@ from readtrim.trim_lowqual import trim_lowqual
 def read_arg(args):
     p = ap.ArgumentParser(description=Version.show_version())
     required_args = p.add_argument_group('Required arguments.')
-    required_args.add_argument('--fqlist', required=True,
-                        help='fastq file list, with head, #sample\tfq1\tfq2,\
-                        optional columns are adap3 and adap5, \
-                        indicates adapters from 3 end and 5 end.')
+    #required_args.add_argument('--fqlist', required=True,
+    #                    help='fastq file list, with head, #sample\tfq1\tfq2,\
+    #                    optional columns are adap3 and adap5, \
+    #                    indicates adapters from 3 end and 5 end.')
     required_args.add_argument('-fq1', '--fq1', required=True,
                         help='Input FASTQ 1 file.')
     required_args.add_argument('-fq2', '--fq2', required=True,
@@ -38,9 +38,9 @@ def read_arg(args):
     required_args.add_argument('-sn', '--sample_name', required=True,
                         help='Sample name of this input data.')
     optional_args = p.add_argument_group('Optional arguments.')
-    optional_args.add_argument('--remove_headN', action=store_true,
+    optional_args.add_argument('--remove_headN', action='store_true',
                         help='set to remove head Ns if they are exist.')
-    optional_args.add_argument('--remove_dups', action=store_true,
+    optional_args.add_argument('--remove_dups', action='store_true',
                         help='set to remove duplications')
     optional_args.add_argument('--remove_adap', action='store_true',
                         help='set to remove adapters, need adap3 & 5 columns.')
@@ -81,35 +81,35 @@ class stream:
         adapter = None
         if arg.remove_adap:
             adapter = '%s/adapter.list' % outdir
-            cmd = 'echo adap3\t%s\nadap5\t%s>%s' % \
+            cmd = 'echo "adap3\t%s\nadap5\t%s">%s' % \
                 (arg.adap3, arg.adap5, adapter)
             gt_exe.exe_cmd(cmd)
 
         qc = qc_fastq(fq1=arg.fq1, fq2=arg.fq2, adapter=adapter, \
-    				outdir=outdir, sample_name=arg.sn)
+    				outdir=outdir, sample_name=arg.sample_name)
         qc.fastqc()
         if arg.remove_headN:
             removens = removeNs(arg.fq1, arg.fq2, outdir=outdir)
             arg.fq1, arg.fq2 = removens.removeNs_seq()
         if arg.remove_dups:
-            rm_dup = remove_dup(fq1=arg.fq1, fq2=arg.fq2, outdir=outdir, sample_name=arg.sn)
+            rm_dup = remove_dup(fq1=arg.fq1, fq2=arg.fq2, outdir=outdir, sample_name=arg.sample_name)
             arg.fq1, arg.fq2 = rm_dup.fastuniq()
         if arg.remove_adap:
             rm_adap = remove_adap(fq1=arg.fq1, fq2=arg.fq2,
                                 adap3=arg.adap3, adap5=arg.adap5,
         				        phred=arg.phred, ncpu=arg.ncpu,
-        				        outdir=outdir, sample_name=arg.sn)
+        				        outdir=outdir, sample_name=arg.sample_name)
             arg.fq1, arg.fq2 = rm_adap.cutadapt()
         trim_lq = trim_lowqual(infq1=arg.fq1, infq2=arg.fq2,
                     slide_wd=arg.slide_window, minlen=arg.minlen,
                     outdir=outdir, phred=arg.phred, ncpu=arg.ncpu,
-                    sample_namestr=arg.sn)
+                    sample_namestr=arg.sample_name)
         arg.fq1, arg.fq2 = trim_lq.trimmomatic()
         qc = qc_fastq(fq1=arg.fq1, fq2=arg.fq2, adapter=adapter, \
-                    outdir=outdir, sample_name=arg.sn+'.filter')
+                    outdir=outdir, sample_name=arg.sample_name+'.filter')
         qc.fastqc()
 
     def check_dependency(arg):
-        gt_path.is_executable('fastqc')
-        if arg.remove_dups:gt_path.is_executable('fastuniq')
-        if arg.remove_adap:gt_path.is_executable('cutadapt')
+        gt_exe.is_executable('fastqc')
+        if arg.remove_dups:gt_exe.is_executable('fastuniq')
+        if arg.remove_adap:gt_exe.is_executable('cutadapt')
