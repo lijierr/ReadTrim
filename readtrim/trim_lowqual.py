@@ -14,16 +14,13 @@ from biosut import gt_exe, gt_file, gt_path
 
 class trim_lowqual:
 
-	def __init__(self, infq1:str=None, infq2:str=None,
-                slide_wd:str='4:20', minlen:int=75,
-                outdir='./', phred:int=33, ncpu:int=20,
-                sample_name:str='Test'):
-        """
-        Wrapper of trim low quality reads.
+	def __init__(self, infq1:str=None, infq2:str=None, slide_wd:str='4:20', minlen:int=75, outdir='./', phred:int=33, ncpu:int=20, sample_name:str='Test'):
+		"""
+		Wrapper of trim low quality reads.
 
-        Parameter
-        ---------
-        infq1 : str
+		Parameter
+		---------
+		infq1 : str
             Input pair end fastq 1 file.
         infq2 : str
             Input pair end fastq 2 file.
