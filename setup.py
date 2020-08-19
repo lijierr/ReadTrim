@@ -5,7 +5,7 @@ import os
 from readtrim.version import Version
 
 setup(
-	name = 'ReadTrim',
+	name = 'readtrim',
 	description = 'Read trimming and qc workflow.',
 	version = Version.get_version(),
 	url = 'https://github.com/jlli6t/ReadTrim',
@@ -23,7 +23,7 @@ setup(
 				'Operating System :: Unix',
 		],
 	keywords = 'biology bioinformatics',
-	scripts=['bin/readtrim_wf'],
+	scripts=['bin/readtrim'],
 	packages = find_packages(),
 	include_package_data=True,
 	python_requires = '>=3.6',

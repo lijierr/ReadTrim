@@ -6,7 +6,6 @@
 /dist/
 /develop-eggs/
 *.egg-info/
-*.pyc
 
 # docs
 /docs/
