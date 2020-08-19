@@ -38,10 +38,6 @@ class removeNs:
 			logger.error('You have to specify an outdir!')
 			sys.exit()
 
-		if not self.outf:
-			logger.info('Output file is not specified, please specify!')
-			sys.exit()
-
 	def removeNs_seq(self):
 		for seq, idx in zip(self.seqin, list(range(1,len(self.seqin)+1))):
 			gt_file.check_file_exist(seq, check_empty=True)

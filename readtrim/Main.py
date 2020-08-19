@@ -103,7 +103,7 @@ class stream:
         trim_lq = trim_lowqual(infq1=arg.fq1, infq2=arg.fq2,
                     slide_wd=arg.slide_window, minlen=arg.minlen,
                     outdir=outdir, phred=arg.phred, ncpu=arg.ncpu,
-                    sample_namestr=arg.sample_name)
+                    sample_name=arg.sample_name)
         arg.fq1, arg.fq2 = trim_lq.trimmomatic()
         qc = qc_fastq(fq1=arg.fq1, fq2=arg.fq2, adapter=adapter, \
                     outdir=outdir, sample_name=arg.sample_name+'.filter')

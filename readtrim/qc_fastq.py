@@ -67,15 +67,14 @@ class qc_fastq:
 		cmd += ' 2>/dev/null'
 		gt_exe.exe_cmd(cmd, shell=True)
 
-		cmd = 'ls %s/*_fastqc.zip|xargs -t -i unzip -u -d %s {}' % \
+		cmd = 'ls %s/*_fastqc.zip|xargs -t -i unzip -o -d %s {}' % \
 				(self.fastqc_outdir, self.fastqc_outdir)
 		gt_exe.exe_cmd(cmd, shell=True)
 		self.logger.info('End to qc fastq using FastQC.')
 		self._stat_fastqc_result()
 
 	def _stat_fastqc_result(self):
-		self.fastqc_data = '%s/%s*_fastqc/fastqc_data.txt' % \
-							(self.fastqc_outdir, gt_file.get_seqfile_prefix)
+		self.fastqc_data = '%s/*_fastqc/fastqc_data.txt' % self.fastqc_outdir
 
 		self.out_stat = '%s/%s.fastqc.stat.xls' % \
 						(self.fastqc_outdir, self.sample_name)
@@ -90,7 +89,7 @@ class qc_fastq:
 								columns=header, index=index)
 		for t in header:
 			#set(os.popen('cat %s/*_fastqc/fastqc_data.txt|grep "'+k+'"').read().splitlines())
-			out, _ = gt_exe.exe_cmd('grep "%s" %s' % (k, self.fastqc_data))
+			out, _ = gt_exe.exe_cmd('grep "%s" %s' % (t, self.fastqc_data))
 			self.stat[t] = [i.split('\t')[1] for i in out.decode().splitlines()]
 		self.stat.to_csv(self.out_stat, sep='\t')
 

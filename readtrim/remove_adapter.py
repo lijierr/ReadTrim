@@ -83,8 +83,8 @@ class remove_adap:
 		self.outfq1 = '%s/%s' % (outdir, self.outfq1)
 		self.outfq2 = '%s/%s' % (outdir, self.outfq2)
 
-		cmd = 'cutadapt -a %s -A %s -q %s --quality-base %s --trim-n %s --max-n %s -j %d' % \
-			(adap3, adap5, self._q, self.phred, self._max_n, self.ncpu)
+		cmd = 'cutadapt -a %s -A %s -q %s --quality-base %s --trim-n --max-n %s -j %d' % \
+			(self.adap3, self.adap5, self._q, self.phred, self._max_n, self.ncpu)
 		cmd += ' -o %s -p %s %s %s' % \
 				(self.outfq1, self.outfq2, self.fq1, self.fq2)
 

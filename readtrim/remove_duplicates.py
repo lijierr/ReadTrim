@@ -39,7 +39,6 @@ class remove_dup:
 
 		self.fq1 = fq1
 		self.fq2 = fq2
-		self.ncpu = ncpu
 		self.outdir = outdir
 		self.sample_name = sample_name
 
@@ -67,21 +66,23 @@ class remove_dup:
 		self.outfq1 = '%s/%s' % (outdir, self.outfq1)
 		self.outfq2 = '%s/%s' % (outdir, self.outfq2)
 
-		if '.gz$' in self.fq1:
+		if '.gz' in self.fq1:
 			cmd = 'gzip -fd %s %s' % (self.fq1, self.fq2)
 			gt_exe.exe_cmd(cmd, shell=True)
 			self.fq1 = gt_file.get_file_prefix(self.fq1, include_path=True)
 			self.fq2 = gt_file.get_file_prefix(self.fq2, include_path=True)
+			print(self.fq1, self.fq2)
 
-		cmd = 'echo %s\n%s>%s/fq.list' % (self.fq1, self.fq2, outdir)
+		cmd = 'echo "%s\n%s">%s/fq.list' % (self.fq1, self.fq2, outdir)
 		gt_exe.exe_cmd(cmd, shell=True)
 
-		cmd = 'fastuniq -i %s/fq.list -t q -o %s/%s -p %s/%s' % \
-				(outdir, outdir, self.outfq1, outdir, self.outfq2)
+		cmd = 'fastuniq -i %s/fq.list -t q -o %s -p %s' % \
+				(outdir, self.outfq1, self.outfq2)
 		gt_exe.exe_cmd(cmd, shell=True)
 
 		gt_file.check_file_exist(self.outfq1, self.outfq2)
 
 		# gzip file to save space
-		cmd = 'gzip %s %s %s %s' % (self.fq1, self.fq2, self.outfq1, self.outfq2)
+		cmd = 'gzip -f %s %s %s %s' % (self.fq1, self.fq2, self.outfq1, self.outfq2)
+		gt_exe.exe_cmd(cmd, shell=True)
 		return self.outfq1+'.gz', self.outfq2+'.gz'

@@ -40,8 +40,8 @@ class trim_lowqual:
             Sample name of this data.
         """
 
-		self.infq1 = fq1
-		self.infq2 = fq2
+		self.infq1 = infq1
+		self.infq2 = infq2
 		self.slide_wd = slide_wd
 		self.minlen = minlen
 		self.outdir = outdir
@@ -82,8 +82,8 @@ class trim_lowqual:
 		cmd = 'java -jar %s PE -threads %d -phred%s -trimlog %s/trimmomatic.log \
 			%s %s %s %s %s %s LEADING:25 TRAILING:20 \
 			SLIDINGWINDOW:%s MINLEN:%d 2>%s/trimmomatic.stat' % \
-			(trim_jar, ncpu, phred, outdir, \
-			self.fq1, self.fq2, self.outfq1, self.outfq1_un, self.outfq2, self.outfq2_un, \
+			(trim_jar, self.ncpu, self.phred, outdir, \
+			self.infq1, self.infq2, self.outfq1, self.outfq1_un, self.outfq2, self.outfq2_un, \
 			self.slide_wd, self.minlen, outdir)
 		gt_exe.exe_cmd(cmd, shell=True)
 
