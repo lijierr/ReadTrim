@@ -38,6 +38,8 @@ def read_arg(args):
     required_args.add_argument('-sn', '--sample_name', required=True,
                         help='Sample name of this input data.')
     optional_args = p.add_argument_group('Optional arguments.')
+    optional_args.add_argument('--continue', action='store_true',
+                        help='set to continue from last check point.')
     optional_args.add_argument('--remove_headN', action='store_true',
                         help='set to remove head Ns if they are exist.')
     optional_args.add_argument('--remove_dups', action='store_true',
@@ -88,23 +90,28 @@ class stream:
         qc = qc_fastq(fq1=arg.fq1, fq2=arg.fq2, adapter=adapter, \
     				outdir=outdir, sample_name=arg.sample_name)
         qc.fastqc()
+
         if arg.remove_headN:
             removens = removeNs(arg.fq1, arg.fq2, outdir=outdir)
             arg.fq1, arg.fq2 = removens.removeNs_seq()
-        if arg.remove_dups:
-            rm_dup = remove_dup(fq1=arg.fq1, fq2=arg.fq2, outdir=outdir, sample_name=arg.sample_name)
-            arg.fq1, arg.fq2 = rm_dup.fastuniq()
+
+        trim_lq = trim_lowqual(infq1=arg.fq1, infq2=arg.fq2,
+                    slide_wd=arg.slide_window, minlen=arg.minlen,
+                    outdir=outdir, phred=arg.phred, ncpu=arg.ncpu,
+                    sample_name=arg.sample_name)
+        arg.fq1, arg.fq2 = trim_lq.trimmomatic()
+
         if arg.remove_adap:
             rm_adap = remove_adap(fq1=arg.fq1, fq2=arg.fq2,
                                 adap3=arg.adap3, adap5=arg.adap5,
         				        phred=arg.phred, ncpu=arg.ncpu,
         				        outdir=outdir, sample_name=arg.sample_name)
             arg.fq1, arg.fq2 = rm_adap.cutadapt()
-        trim_lq = trim_lowqual(infq1=arg.fq1, infq2=arg.fq2,
-                    slide_wd=arg.slide_window, minlen=arg.minlen,
-                    outdir=outdir, phred=arg.phred, ncpu=arg.ncpu,
-                    sample_name=arg.sample_name)
-        arg.fq1, arg.fq2 = trim_lq.trimmomatic()
+
+        if arg.remove_dups:
+            rm_dup = remove_dup(fq1=arg.fq1, fq2=arg.fq2, outdir=outdir, sample_name=arg.sample_name)
+            arg.fq1, arg.fq2 = rm_dup.fastuniq()
+
         qc = qc_fastq(fq1=arg.fq1, fq2=arg.fq2, adapter=adapter, \
                     outdir=outdir, sample_name=arg.sample_name+'.filter')
         qc.fastqc()

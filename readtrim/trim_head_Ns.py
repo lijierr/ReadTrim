@@ -49,7 +49,7 @@ class removeNs:
 			if self.fmt == 'fastq':
 				for t, seq, qual in io_seq.iterator(fh):
 					seq = self._remove_first_Ns(seq)
-					line = '@%s\n%s\n+\n%s\n' % (t, seq, qual)
+					line = '@%s\n%s\n+\n%s\n' % (t, seq, qual[:len(seq)])
 					out_handle.write(line.encode())
 			else:
 				for t, seq, qual in io_seq.iterator(fh):

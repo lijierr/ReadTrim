@@ -21,7 +21,7 @@ class qc_fastq:
 	Wrapper for running fastq file qc.
 	"""
 	def __init__(self, fq1:str=None, fq2:str=None, adapter:str=None, \
-				outdir:str='./', sample_name:str='Test'):
+				outdir:str='./', sample_name:str='Test', continue=False):
 		"""
 		Wrapper for running fastsq qc.
 
@@ -35,6 +35,8 @@ class qc_fastq:
 			Adapter sequence file in FASTA format.
 		outdir : str, default is './'
 			Directory to output reuslt.
+		continue : bool, default is False.
+			Set True to continue from last check point.
 
 		Result
 		------
@@ -47,6 +49,7 @@ class qc_fastq:
 		self.adapter = adapter
 		self.outdir = outdir
 		self.sample_name = sample_name
+		self.continue = continue
 
 		if not self.fq1 and not self.fq2:
 			logger.error('Not found fastq 1 and not found fastq file2, please check!')
@@ -56,40 +59,48 @@ class qc_fastq:
 		self.logger.info('Start to qc fastq using FastQC.')
 		self.fastqc_outdir = gt_path.sure_path_exist(
 							self.outdir,
-							'%s/fastqc' % self.outdir, \
-							'%s/fastqc/%s' % (self.outdir, self.sample_name)
+							'{}/fastqc'.format(self.outdir), \
+							'{outdir}/fastqc/{sample}'.format( \
+							outdir=self.outdir, \
+							sample=self.sample_name \
+							) \
 							)[2]
 
-		cmd = 'fastqc -o %s' % self.fastqc_outdir
-		if self.adapter:cmd += ' -a %s' % self.adapter
-		if self.fq1:cmd += ' %s' % self.fq1
-		if self.fq2:cmd += ' %s' % self.fq2
+		cmd = 'fastqc -o {}'.format(self.fastqc_outdir)
+		if self.adapter:cmd += ' -a {}'.format(self.adapter)
+		if self.fq1:cmd += ' {}'.format(self.fq1)
+		if self.fq2:cmd += ' {}'.format(self.fq2)
 		cmd += ' 2>/dev/null'
 		gt_exe.exe_cmd(cmd, shell=True)
 
-		cmd = 'ls %s/*_fastqc.zip|xargs -t -i unzip -o -d %s {}' % \
-				(self.fastqc_outdir, self.fastqc_outdir)
+		cmd = 'ls {outdir}/*_fastqc.zip|xargs -t -i unzip -o -d {outdir} \{\}'.format(
+				outdir=self.fastqc_outdir)
 		gt_exe.exe_cmd(cmd, shell=True)
 		self.logger.info('End to qc fastq using FastQC.')
 		self._stat_fastqc_result()
 
 	def _stat_fastqc_result(self):
-		self.fastqc_data = '%s/*_fastqc/fastqc_data.txt' % self.fastqc_outdir
+		self.fastqc_data = '{}/*_fastqc/fastqc_data.txt'.format(self.fastqc_outdir)
 
-		self.out_stat = '%s/%s.fastqc.stat.xls' % \
-						(self.fastqc_outdir, self.sample_name)
+		self.out_stat = '{outdir}/{sample}.fastqc.stat.xls'.format( \
+											outdir=self.fastqc_outdir, \
+											sample=self.sample_name \
+											)
 
 		header = ['Encoding', 'Total Sequences', 'Sequence length', '%GC']
 
-		out, _ = gt_exe.exe_cmd('grep Filename %s' % self.fastqc_data, shell=True)
+		out, _ = gt_exe.exe_cmd('grep Filename {}'.format(self.fastqc_data), shell=True)
 		index = [gt_file.get_file_prefix(i.split('\t')[1]) for i in out.decode().splitlines()]
 
-		nfiles, _ = gt_exe.exe_cmd('ls %s|wc -l' % self.fastqc_data, shell=True)
+		nfiles, _ = gt_exe.exe_cmd('ls {}|wc -l'.format{self.fastqc_data}, shell=True)
 		self.stat = pd.DataFrame(np.zeros((int(nfiles.decode().strip()), 4)), \
 								columns=header, index=index)
 		for t in header:
 			#set(os.popen('cat %s/*_fastqc/fastqc_data.txt|grep "'+k+'"').read().splitlines())
-			out, _ = gt_exe.exe_cmd('grep "%s" %s' % (t, self.fastqc_data))
+			out, _ = gt_exe.exe_cmd('grep "{key}" {target}'.format(
+													key=t,
+													targe=self.fastqc_data
+													))
 			self.stat[t] = [i.split('\t')[1] for i in out.decode().splitlines()]
 		self.stat.to_csv(self.out_stat, sep='\t')
 
