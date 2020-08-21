@@ -18,7 +18,7 @@ class remove_adap:
 	def __init__(self, fq1:str=None, fq2:str=None, \
 				adap3:str=None, adap5:str=None,
 				phred:int=33, ncpu:int=10, \
-				outdir:str='./', sample_name:str="Test"):
+				outdir:str='./', basename:str="Test"):
 		"""
 		Wrapper of removing adapters.
 
@@ -49,7 +49,7 @@ class remove_adap:
 		self.phred = phred
 		self.ncpu = ncpu
 		self.outdir = outdir
-		self.sample_name = sample_name
+		self.basename = basename
 
 		if not self.fq1:
 			logger.error('Not found fastq 1 file, please check.')
@@ -69,25 +69,26 @@ class remove_adap:
 
 		self.prefix = gt_file.get_seqfile_prefix(self.fq1)
 
-		self.outfq1 = '%s_noadap.1.fq.gz' % self.prefix
-		self.outfq2 = '%s_noadap.2.fq.gz' % self.prefix
+		self.outfq1 = f'{self.prefix}_noadap.1.fq.gz'
+		self.outfq2 = f'{self.prefix}_noadap.2.fq.gz'
 
 	def cutadapt(self):
 
-		outdir = gt_path.sure_path_exist(
-							self.outdir, \
-							'%s/cutadapt' % self.outdir,
-							'%s/cutadapt/%s' % (self.outdir, self.sample_name)
+		cutadapt_outdir = gt_path.sure_path_exist(
+							self.outdir,
+							f'{self.outdir}/cutadapt',
+							f'{self.outdir}/cutadapt/{self.basename}'
 							)[2]
 
-		self.outfq1 = '%s/%s' % (outdir, self.outfq1)
-		self.outfq2 = '%s/%s' % (outdir, self.outfq2)
-
-		cmd = 'cutadapt -a %s -A %s -q %s --quality-base %s --trim-n --max-n %s -j %d' % \
-			(self.adap3, self.adap5, self._q, self.phred, self._max_n, self.ncpu)
-		cmd += ' -o %s -p %s %s %s' % \
-				(self.outfq1, self.outfq2, self.fq1, self.fq2)
+		self.outfq1 = f'{cutadapt_outdir}/{self.outfq1}'
+		self.outfq2 = f'{cutadapt_outdir}/{self.outfq2}'
+		logger.info('Start to remove adapters using cutadapt.')
+		cmd = f'cutadapt -a {self.adap3} -A {self.adap5} -q {self._q} \
+				--quality-base {self.phred} --trim-n \
+				--max-n {self._max_n} -j {self.ncpu} \
+				-o {self.outfq1} -p {self.outfq2} {self.fq1} {self.fq2}'
 
 		gt_exe.exe_cmd(cmd, shell=True)
+		gt_file.check_file_exist(self.outfq1, self.outfq2, check_exist=True)
 
 		return self.outfq1, self.outfq2

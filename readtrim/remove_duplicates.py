@@ -11,9 +11,10 @@ import re
 from biosut import gt_file, gt_path, gt_exe
 
 class remove_dup:
+	self.dt = {}
 
 	def __init__(self, fq1:str=None, fq2:str=None, \
-				outdir:str='./', sample_name:str="Test"):
+				outdir:str='./', basename:str="Test"):
 		"""
 		Wrapper of removing adapters.
 
@@ -33,56 +34,56 @@ class remove_dup:
 			Number of cpus to use.
 		outdir : str, default is current directory.
 			Output directory to output result.
-		sample_name : str, default is Test.
-			Sample name of this data, will create corresponding direcotry.
+		basename : str, default is Test.
+			Basename for outputs.
 		"""
 
 		self.fq1 = fq1
 		self.fq2 = fq2
 		self.outdir = outdir
-		self.sample_name = sample_name
+		self.basename = basename
 
 		if not self.fq1:
 			logger.error('Not found fastq 1 file, please check.')
+			sys.exit()
 		if not self.fq2:
 			logger.error('Not found fastq 2 file, please check.')
+			sys.exit()
 
 		gt_file.check_file_exist(self.fq1, self.fq2)
 
 		self.prefix = gt_file.get_seqfile_prefix(self.fq1)
 
-		self.outfq1 = '%s_nodup.1.fq' % self.prefix
-		self.outfq2 = '%s_nodup.2.fq' % self.prefix
-
+		self.outfq1 = f'{self.prefix}.nodup.1.fq'
+		self.outfq2 = f'{self.prefix}.nodup.2.fq'
 
 	def fastuniq(self):
 
-		outdir = gt_path.sure_path_exist(
-							self.outdir, \
-							'%s/fastuniq' % self.outdir,
-							'%s/fastuniq/%s' % (self.outdir, self.sample_name)
-							)[2]
+		fastuniq_outdir = gt_path.sure_path_exist(
+							self.outdir,
+							f'{self.outdir}/fastuniq',
+							f'{self.outdir}/fastuniq/{self.basename}')[2]
 
-		self.outfq1 = '%s/%s' % (outdir, self.outfq1)
-		self.outfq2 = '%s/%s' % (outdir, self.outfq2)
+		self.outfq1 = f'{self.outdir}/{self.outfq1}'
+		self.outfq2 = f'{self.outdir}/{self.outfq2}'
 
 		if '.gz' in self.fq1:
-			cmd = 'gzip -fd %s %s' % (self.fq1, self.fq2)
+			cmd = f'gzip -fd {self.fq1} {self.fq2}'
 			gt_exe.exe_cmd(cmd, shell=True)
 			self.fq1 = gt_file.get_file_prefix(self.fq1, include_path=True)
 			self.fq2 = gt_file.get_file_prefix(self.fq2, include_path=True)
-			print(self.fq1, self.fq2)
+			#print(self.fq1, self.fq2)
 
-		cmd = 'echo "%s\n%s">%s/fq.list' % (self.fq1, self.fq2, outdir)
+		cmd = f'echo "{self.fq1}\n{self.fq2}">{fastuniq_outdir}/fq.list'
 		gt_exe.exe_cmd(cmd, shell=True)
 
-		cmd = 'fastuniq -i %s/fq.list -t q -o %s -p %s' % \
-				(outdir, self.outfq1, self.outfq2)
+		cmd = f'fastuniq -i {fastuniq_outdir}/fq.list -t q \
+				-o {self.outfq1} -p {self.outfq2}'
 		gt_exe.exe_cmd(cmd, shell=True)
 
 		gt_file.check_file_exist(self.outfq1, self.outfq2)
 
 		# gzip file to save space
-		cmd = 'gzip -f %s %s %s %s' % (self.fq1, self.fq2, self.outfq1, self.outfq2)
+		cmd = f'gzip -f {self.fq1} {self.fq2} {self.outfq1} {self.outfq2}'
 		gt_exe.exe_cmd(cmd, shell=True)
 		return self.outfq1+'.gz', self.outfq2+'.gz'
