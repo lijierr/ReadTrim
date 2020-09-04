@@ -6,9 +6,7 @@ The :mod:`readtrim.trim_lowqual` trim low quality bases from reads.
 # License: GNU v3.0
 # Copyrigth: 2019
 
-import logging
-
-logger = logging.getLogger(__name__)
+from loguru import logging
 
 from biosut import gt_exe, gt_file, gt_path
 
@@ -16,7 +14,7 @@ class trim_lowqual:
 
 	def __init__(self, infq1:str=None, infq2:str=None, \
 				slide_wd:str='4:20', minlen:int=75, outdir='./', \
-				phred:int=33, ncpu:int=20, sample_name:str='Test'):
+				phred:int=33, ncpu:int=20, basename:str='Test'):
 		"""
 		Wrapper of trim low quality reads.
 
@@ -36,8 +34,8 @@ class trim_lowqual:
             Phred value of read base.
         ncpu : int, default is 20.
             Number of cpus to use.
-        sample_name : str, default is Test.
-            Sample name of this data.
+        basename : str, default is Test.
+            basename of this data.
         """
 
 		self.infq1 = infq1
@@ -47,18 +45,18 @@ class trim_lowqual:
 		self.outdir = outdir
 		self.phred = phred
 		self.ncpu = ncpu
-		self.sample_name = sample_name
+		self.basename = basename
 
 		gt_file.check_file_exist(self.infq1, self.infq2, check_empty=True)
 
 		self.prefix = gt_file.get_seqfile_prefix(self.infq1)
 
         # init these variable here, to escape that each tool init once.
-		self.outfq1 = '%s.trim.1.fq.gz' % self.prefix
-		self.outfq2 = '%s.trim.2.fq.gz' % self.prefix
-		self.outfq1_un = '%s.trim.unpair.1.fq.gz' % self.prefix
-		self.outfq2_un = '%s.trim.unpair.2.fq.gz' % self.prefix
-		self.outfq_un = '%s.trim.unpair.fq.gz' % self.prefix
+		#self.outfq1 = f'{self.prefix}.trim.1.fq.gz'
+		#self.outfq2 = f'{self.prefix}.trim.2.fq.gz'
+		#self.outfq1_un = f'{self.prefix}.trim.unpair.1.fq.gz'
+		#self.outfq2_un = f'{self.prefix}.trim.unpair.2.fq.gz'
+		#self.outfq_un = f'{self.prefix}.trim.unpair.fq.gz'
         ######
 
 		#if 'TRIM_JAR' not in os.environ:
@@ -69,28 +67,29 @@ class trim_lowqual:
 		trim_jar = '/90days/s4506266/softwares/Trimmomatic-0.39/trimmomatic-0.39.jar'
 		outdir = gt_path.sure_path_exist( \
                         self.outdir, \
-                        '%s/trimmomatic' % self.outdir,\
-                        '%s/trimmomatic/%s' % (self.outdir, self.sample_name) \
+                        f'{self.outdir}/trimmomatic',\
+                        f'{self.outdir}/trimmomatic/{self.basename}' \
                         )[2]
 
-		self.outfq1 = '%s/%s' % (outdir, self.outfq1)
-		self.outfq2 = '%s/%s' % (outdir, self.outfq2)
-		self.outfq1_un = '%s/%s' % (outdir, self.outfq1_un)
-		self.outfq2_un = '%s/%s' % (outdir, self.outfq2_un)
-		self.outfq_un = '%s/%s' % (outdir, self.outfq_un)
+		self.outfq1 = f'{outdir}/{self.prefix}.trim.1.fq.gz'
+		self.outfq2 = f'{outdir}/{self.prefix}.trim.2.fq.gz'
+		self.outfq1_un = f'{outdir}/{self.prefix}.trim.unpair.1.fq.gz'
+		self.outfq2_un = f'{outdir}/{self.prefix}.trim.unpair.2.fq.gz'
+		self.outfq_un = f'{outdir}/{self.prefix}.trim.unpair.fq.gz'
 
-		cmd = 'java -jar %s PE -threads %d -phred%s -trimlog %s/trimmomatic.log \
-			%s %s %s %s %s %s LEADING:25 TRAILING:20 \
-			SLIDINGWINDOW:%s MINLEN:%d 2>%s/trimmomatic.stat' % \
-			(trim_jar, self.ncpu, self.phred, outdir, \
-			self.infq1, self.infq2, self.outfq1, self.outfq1_un, self.outfq2, self.outfq2_un, \
-			self.slide_wd, self.minlen, outdir)
+		cmd = f'java -jar {trim_jar} PE -threads {self.ncpu} -phred{self.phred} \
+			-trimlog {outdir}/trimmomatic.log {self.infq1} {self.infq2} \
+			{self.outfq1} {self.outfq1_un} {self.outfq2} {self.outfq2_un} \
+			LEADING:25 TRAILING:20 SLIDINGWINDOW:{self.slide_wd} \
+			MINLEN:{self.minlen} 2>{outdir}/trimmomatic.stat'
+
+		logger.info('Start to trim reads using trimmomatic, command is {cmd}.')
 		gt_exe.exe_cmd(cmd, shell=True)
 
-		gt_file.check_file_exist('%s/trimmomatic.stat' % outdir, check_empty=True)
+		gt_file.check_file_exist(f'{outdir}/trimmomatic.stat', check_empty=True)
 
         ## zcat unpaired together
-		cmd = 'zcat %s %s|gzip>%s' % (self.outfq1_un, self.outfq2_un, self.outfq_un)
+		cmd = f'zcat {self.outfq1_un} {self.outfq2_un}|gzip>{self.outfq_un}'
 		gt_exe.exe_cmd(cmd, shell=True)
-
+		logger.info('Finished trim reads.')
 		return self.outfq1, self.outfq2,

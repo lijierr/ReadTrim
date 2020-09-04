@@ -7,14 +7,13 @@ The :mod:`readtrim.qc_fastq` printing version information.
 # Copyrigth: 2018
 
 import sys
-import logging
+from loguru import logger
 
 import numpy as np
 import pandas as pd
 
 from biosut import gt_file, gt_path, gt_exe
 
-#logger = logging.getLogger(__name__)
 
 class qc_fastq:
 	"""
@@ -54,12 +53,12 @@ class qc_fastq:
 		self.continue = continue
 
 		if not self.fq1 and not self.fq2:
-			logger.error('Not found fastq 1 and not found fastq file2, please check!')
+			logger.error('Both {self.fq1} and {sefl.fq2} are not found, please check!')
 			sys.exit()
 
 	def fastqc(self):
-		self.logger.info('Start to qc fastq using FastQC.')
-		self.fastqc_outdir = gt_path.sure_path_exist( 
+
+		self.fastqc_outdir = gt_path.sure_path_exist(
 							self.outdir,
 							f'{self.outdir}/fastqc',
 							f'{self.outdir}/fastqc/{self.basename}'
@@ -71,12 +70,13 @@ class qc_fastq:
 		if self.fq2:cmd += f' {self.fq2}'
 
 		cmd += ' 2>/dev/null'
+		logger.info('Start run FastQC, command is {cmd}.')
 		gt_exe.exe_cmd(cmd, shell=True)
-
 		cmd = f'ls {self.fastqc_outdir}/*_fastqc.zip|xargs -t -i unzip -o -d {self.fastqc_outdir} {{}}'
+		logger.info('Start to unzip FastQC results, command is {cmd}.')
 		#.format(outdir=self.fastqc_outdir)
 		gt_exe.exe_cmd(cmd, shell=True)
-		self.logger.info('End to qc fastq using FastQC.')
+		self.logger.info('Finished run FastQC.')
 		self._stat_fastqc_result()
 
 	def _stat_fastqc_result(self):

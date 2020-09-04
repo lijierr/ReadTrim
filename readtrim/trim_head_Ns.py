@@ -9,13 +9,15 @@ The :mod:`readtrim.remove_head_Ns` remove head Ns from sequences.
 import re
 import gzip
 import sys
+from loguru import logger
 
 from biosut import gt_file, gt_path, gt_exe
-from biosut import io_seq
+from biosut import io_seq, alter_seq
+
 
 class removeNs:
 
-	def __init__(self, *seqin, outdir:str=None, fmt:str='fastq'):
+	def __init__(self, *seqin, outdir:str=None):
 		"""
 		Remove N(s) located head of each read.
 
@@ -32,56 +34,19 @@ class removeNs:
 		self.seqin = seqin
 		self.outdir = gt_path.sure_path_exist(outdir,
 										outdir + '/removeN')[1]
-		self.fmt = fmt
 
 		if not self.outdir:
 			logger.error('You have to specify an outdir!')
 			sys.exit()
 
 	def removeNs_seq(self):
-		for seq, idx in zip(self.seqin, list(range(1,len(self.seqin)+1))):
+		for idx, seq in enumerate(self.seqin, 1):
+			logger.info('Start removing Ns from {seq}')
 			gt_file.check_file_exist(seq, check_empty=True)
 			fh = gt_file.perfect_open(seq)
 			prefix = gt_file.get_seqfile_prefix(seq)
-			out_handle = gzip.open('%s/%s.noN.%d.fastq.gz'% \
-								(self.outdir, prefix, idx), 'wb')
-			# split into if else loop, escape from judge every time.
-			if self.fmt == 'fastq':
-				for t, seq, qual in io_seq.iterator(fh):
-					seq = self._remove_first_Ns(seq)
-					line = '@%s\n%s\n+\n%s\n' % (t, seq, qual[:len(seq)])
-					out_handle.write(line.encode())
-			else:
-				for t, seq, qual in io_seq.iterator(fh):
-					seq = self._remove_first_Ns(seq)
-					line = '>%s\n%s\n' % (t, seq)
-					out_handle.write(line.encode())
-			gt_file.close_file(fh, out_handle)
-		return '%s/%s.noN.1.fastq.gz' % (self.outdir, prefix), \
-				'%s/%s.noN.2.fastq.gz' % (self.outdir, prefix)
-#	def removeNs_fasta(self, fasta, outf):
-#		from Bio.SeqIO.FastaIO import SimpleFastaParser
-#		fasta_handle = perfect_open(fasta)
-		# use low-level parser to speed up
-#		with gzip.open(outf, "wb") as out_hanble:
-#			for title, seq in SimpleFastaParser(fasta_handle):
-#				seq = self._remove_first_N(seq)
-#				line = ">%s\n%s\n" %(title, seq)
-#				out_handle.write(line.encode())
-
-#	def removeNs_fastq(self, fastq, outf):
-#		from Bio.SeqIO.QualityIO import FastqGeneralIterator
-#		fastq_handle = perfect_open(fastq)
-		# use low-level parser to speed up
-#		with gzip.open(outf, "wb") as out_handle:
-#			for title, seq, qual in FastqGeneralIterator(fastq_handle):
-#				nseq = self._remove_first_N(seq)
-#				qual = qual[len(seq)-len(nseq):]
-#				line="@%s\n%s\n+\n%s\n" % (title, nseq, qual)
-#				out_handle.write(line.encode())
-
-	def _remove_first_Ns(self, string):
-		while re.match('N', string, flags=re.I):
-			string = string[1:]
-		#	self._remove_first_N(string)
-		return string
+			out_seq_file = f'{self.outdir}/{prefix}.noN.{idx}.fq.gz'
+			alter_seq.trim_headn(inseq=seq, outseq=out_seq_file, outqual=True)
+			logger.info('End removing Ns from {seq}')
+		return f'{self.outdir}/{prefix}.noN.1.fq.gz', \
+				f'{self.outdir}/{prefix}.noN.2.fq.gz'

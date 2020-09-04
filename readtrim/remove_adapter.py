@@ -7,6 +7,7 @@ The :mod:`readtrim.remove_adapter` remove adapters from read.
 # Copyrigth: 2020
 
 import re
+from loguru import logger
 
 from biosut import gt_file, gt_path, gt_exe
 
@@ -52,10 +53,10 @@ class remove_adap:
 		self.basename = basename
 
 		if not self.fq1:
-			logger.error('Not found fastq 1 file, please check.')
+			logger.error('{self.fq1} not found, please check.')
 			sys.exit()
 		if not self.fq2:
-			logger.error('Not found fastq 2 file, please check.')
+			logger.error('{self.fq2} not found, please check.')
 			sys.exit()
 
 		if not self.adap3:
@@ -87,8 +88,9 @@ class remove_adap:
 				--quality-base {self.phred} --trim-n \
 				--max-n {self._max_n} -j {self.ncpu} \
 				-o {self.outfq1} -p {self.outfq2} {self.fq1} {self.fq2}'
-
+		logger.info('Start to remove adapters using cutadapt, command is {cmd}.')
 		gt_exe.exe_cmd(cmd, shell=True)
 		gt_file.check_file_exist(self.outfq1, self.outfq2, check_exist=True)
+		logger.info('Finished remove adapters.')
 
 		return self.outfq1, self.outfq2
