@@ -2,7 +2,7 @@
 The :mod:`readtrim.remove_head_Ns` remove head Ns from sequences.
 """
 
-# Author: Jie Li <mm.jlli6t@gmail.com>
+# Author: Jie Li <jlli6t@gmail.com>
 # License: GNU v3.0
 # Copyrigth: 2019
 

@@ -2,7 +2,7 @@
 The :mod:`readtrim.trim_lowqual` trim low quality bases from reads.
 """
 
-# Author: Jie Li <mm.jlli6t@gmail.com>
+# Author: Jie Li <jlli6t@gmail.com>
 # License: GNU v3.0
 # Copyrigth: 2019
 

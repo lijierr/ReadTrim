@@ -2,7 +2,7 @@
 The :mod:`readtrim.remove_adapter` remove adapters from read.
 """
 
-# Author: Jie Li <mm.jlli6t@gmail.com>
+# Author: Jie Li <jlli6t@gmail.com>
 # License: GNU v3.0
 # Copyrigth: 2020
 
