@@ -10,9 +10,9 @@ setup(
 	version = Version.get_version(),
 	url = 'https://github.com/jlli6t/ReadTrim',
 	author = 'Jie Li',
-	author_email = 'mm.jlli6t@gmail.com',
+	author_email = 'jlli6t@gmail.com',
 	maintainer = 'Jie Li',
-	maintainer_email = 'mm.jlli6t@gmail.com',
+	maintainer_email = 'jlli6t@gmail.com',
 
 	long_description=Version.long_description(),
 	long_description_content_type='text/markdown',

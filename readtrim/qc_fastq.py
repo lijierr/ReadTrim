@@ -20,7 +20,7 @@ class qc_fastq:
 	Wrapper for running fastq file qc.
 	"""
 	def __init__(self, fq1:str=None, fq2:str=None, adapter:str=None, \
-				outdir:str='./', basename:str='Test', continue=False):
+				outdir:str='./', basename:str='Test', contin=False):
 		"""
 		Wrapper for running fastsq qc.
 
@@ -50,7 +50,7 @@ class qc_fastq:
 		self.adapter = adapter
 		self.outdir = outdir
 		self.basename = sample_name
-		self.continue = continue
+		self.contin = contin
 
 		if not self.fq1 and not self.fq2:
 			logger.error('Both {self.fq1} and {sefl.fq2} are not found, please check!')
