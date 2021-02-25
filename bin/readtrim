@@ -3,7 +3,7 @@
 __author__ = 'Jie Li'
 __copyright__ = 'Copyright 2019-2020'
 __credits__ = ['Jie Li']
-__email__ = 'mm.jlli6t@gmail.com'
+__email__ = 'jlli6t@gmail.com'
 __status__ = 'Development'
 
 import os
