@@ -54,6 +54,8 @@ def read_params(pars):
                         help='slide_window for trimming low quality bases, default is 4:20')
     optional_pars.add_argument('--minlen', default=75, type=int,
                         help='Minimum length of read to keep, default 75.')
+    optional_pars.add_argument('--croplen', default=None,
+                        help='Crop reads into specific lengths, default not crop.')
     optional_pars.add_argument('--phred', default=33, type=int,
                         help='Phred value of base, default 33.')
     optional_pars.add_argument('--ncpu', default=10, type=int,

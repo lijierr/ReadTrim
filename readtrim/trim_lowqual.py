@@ -13,8 +13,8 @@ from biosut import gt_exe, gt_file, gt_path
 class trim_lowqual:
 
 	def __init__(self, infq1:str=None, infq2:str=None, \
-				slide_wd:str='4:20', minlen:int=75, outdir='./', \
-				phred:int=33, ncpu:int=20, basename:str='Test'):
+				slide_wd:str='4:20', minlen:int=75, croplen=None, \
+				outdir='./', phred:int=33, ncpu:int=20, basename:str='Test'):
 		"""
 		Wrapper of trim low quality reads.
 
@@ -42,6 +42,7 @@ class trim_lowqual:
 		self.infq2 = infq2
 		self.slide_wd = slide_wd
 		self.minlen = minlen
+		self.croplen = croplen
 		self.outdir = outdir
 		self.phred = phred
 		self.ncpu = ncpu
@@ -76,12 +77,12 @@ class trim_lowqual:
 		self.outfq1_un = f'{outdir}/{self.prefix}.trim.unpair.1.fq.gz'
 		self.outfq2_un = f'{outdir}/{self.prefix}.trim.unpair.2.fq.gz'
 		self.outfq_un = f'{outdir}/{self.prefix}.trim.unpair.fq.gz'
-
+		crop = f'CROP:{self.croplen}' if self.croplen else ''
 		cmd = f'java -jar {trim_jar} PE -threads {self.ncpu} -phred{self.phred} \
 			-trimlog {outdir}/trimmomatic.log {self.infq1} {self.infq2} \
 			{self.outfq1} {self.outfq1_un} {self.outfq2} {self.outfq2_un} \
 			LEADING:25 TRAILING:20 SLIDINGWINDOW:{self.slide_wd} \
-			MINLEN:{self.minlen} 2>{outdir}/trimmomatic.stat'
+			MINLEN:{self.minlen} {crop} 2>{outdir}/trimmomatic.stat'
 
 		logger.info('Start to trim reads using trimmomatic, command is {cmd}.')
 		gt_exe.exe_cmd(cmd, shell=True)
