@@ -6,7 +6,7 @@ The :mod:`readtrim.trim_lowqual` trim low quality bases from reads.
 # License: GNU v3.0
 # Copyrigth: 2019
 
-from loguru import logging
+from loguru import logger
 
 from biosut import gt_exe, gt_file, gt_path
 
