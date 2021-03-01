@@ -15,9 +15,9 @@ from readtrim.Main import read_arg, stream
 if __name__ == '__main__':
     if len(sys.argv) == 1:
         sys.argv.append('-h')
-        read_arg(sys.argv)
+        read_params(sys.argv)
     elif len(sys.argv) == 2 and '-h' in sys.argv[1]:
-        read_arg(sys.argv)
+        read_params(sys.argv)
     elif len(sys.argv) == 2 and '-v' in sys.argv[1]:
         Version.show_version()
     else:
