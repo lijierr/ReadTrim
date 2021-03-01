@@ -10,7 +10,7 @@ import os
 import sys
 
 from readtrim.version import Version
-from readtrim.Main import read_arg, stream
+from readtrim.Main import read_params, stream
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
