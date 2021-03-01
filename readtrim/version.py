@@ -23,7 +23,7 @@ class Version:
 	def show_version(cls):
 		ver = cls.get_version()
 		name = split(dirname(__file__))[1]
-		print('\n\n{:^80name} version * {ver} *\n\n'.format(name, ver))
+		print('\n\n{:^80} version * {} *\n\n'.format(name, ver))
 
 	@classmethod
 	def long_description(cls):
