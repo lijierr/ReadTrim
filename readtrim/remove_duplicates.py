@@ -12,7 +12,8 @@ from loguru import logger
 from biosut import gt_file, gt_path, gt_exe
 
 class remove_dup:
-	self.dt = {}
+
+	#self.dt = {}  ## what this variable for though ??
 
 	def __init__(self, fq1:str=None, fq2:str=None, \
 				outdir:str='./', basename:str="Test"):
