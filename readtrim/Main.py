@@ -118,7 +118,7 @@ class stream:
         trim_lq = trim_lowqual(infq1=par.fq1, infq2=par.fq2,
                     slide_wd=par.slide_window, minlen=par.minlen,
                     outdir=outdir, phred=par.phred, ncpu=par.ncpu,
-                    basename=par.basename)
+                    basename=par.basename, croplen=par.croplen)
         par.fq1, par.fq2 = trim_lq.trimmomatic()
 
         qc = qc_fastq(fq1=par.fq1, fq2=par.fq2, adapter=adapter, \

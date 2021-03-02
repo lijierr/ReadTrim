@@ -90,7 +90,7 @@ class remove_adap:
 				-o {self.outfq1} -p {self.outfq2} {self.fq1} {self.fq2}'
 		logger.info(f'Start to remove adapters using cutadapt, command is {cmd}.')
 		gt_exe.exe_cmd(cmd, shell=True)
-		gt_file.check_file_exist(self.outfq1, self.outfq2, check_exist=True)
+		gt_file.check_file_exist(self.outfq1, self.outfq2, check_empty=True)
 		logger.info('Finished remove adapters.')
 
 		return self.outfq1, self.outfq2
