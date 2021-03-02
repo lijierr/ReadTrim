@@ -77,7 +77,7 @@ class qc_fastq:
 		logger.info('Start to unzip FastQC results, command is {cmd}.')
 		#.format(outdir=self.fastqc_outdir)
 		gt_exe.exe_cmd(cmd, shell=True)
-		self.logger.info('Finished run FastQC.')
+		logger.info('Finished run FastQC.')
 		self._stat_fastqc_result()
 
 	def _stat_fastqc_result(self):
