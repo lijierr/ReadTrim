@@ -91,7 +91,7 @@ class stream:
             adapter = None
 
         qc = qc_fastq(fq1=par.fq1, fq2=par.fq2, adapter=adapter, \
-    				outdir=outdir, sample_name=par.basename)
+    				outdir=outdir, basename=par.basename)
         qc.fastqc()
 
         if par.remove_headN:
@@ -100,7 +100,7 @@ class stream:
 
         if par.remove_dups:
             rm_dup = remove_dup(fq1=par.fq1, fq2=par.fq2, outdir=outdir, \
-                                sample_name=par.sample_name)
+                                basename=par.basename)
             par.fq1, par.fq2 = rm_dup.fastuniq()
 
         if par.remove_adap:
@@ -118,11 +118,11 @@ class stream:
         trim_lq = trim_lowqual(infq1=par.fq1, infq2=par.fq2,
                     slide_wd=par.slide_window, minlen=par.minlen,
                     outdir=outdir, phred=par.phred, ncpu=par.ncpu,
-                    sample_name=par.basename)
+                    basename=par.basename)
         par.fq1, par.fq2 = trim_lq.trimmomatic()
 
         qc = qc_fastq(fq1=par.fq1, fq2=par.fq2, adapter=adapter, \
-                    outdir=outdir, sample_name=par.sample_name+'.filter')
+                    outdir=outdir, basename=par.basename+'.filter')
         qc.fastqc()
 
     def check_dependency(par):
