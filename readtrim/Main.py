@@ -83,6 +83,13 @@ class stream:
         outdir = gt_path.sure_path_exist(par.outdir)
         prefix = gt_file.get_seqfile_prefix(par.fq1)
 
+        if par.remove_adap:
+            adapter = f'{outdir}/adapter.list'
+            cmd = f'echo "adap3\t{par.adap3}\nadap5\t{par.adap5}">{adapter}'
+            gt_exe.exe_cmd(cmd)
+        else:
+            adapter = None
+
         qc = qc_fastq(fq1=par.fq1, fq2=par.fq2, adapter=adapter, \
     				outdir=outdir, sample_name=par.basename)
         qc.fastqc()
@@ -97,10 +104,10 @@ class stream:
             par.fq1, par.fq2 = rm_dup.fastuniq()
 
         if par.remove_adap:
-            adapter = '%s/adapter.list' % outdir
-            cmd = 'echo "adap3\t%s\nadap5\t%s">%s' % \
-                    (par.adap3, par.adap5, adapter)
-            gt_exe.exe_cmd(cmd)
+            #adapter = '%s/adapter.list' % outdir
+            #cmd = 'echo "adap3\t%s\nadap5\t%s">%s' % \
+                    #(par.adap3, par.adap5, adapter)
+            #gt_exe.exe_cmd(cmd)
 
             rm_adap = remove_adap(fq1=par.fq1, fq2=par.fq2,
                                 adap3=par.adap3, adap5=par.adap5,
