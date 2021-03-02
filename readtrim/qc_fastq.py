@@ -44,7 +44,8 @@ class qc_fastq:
 			Output qc result to outdir.
 		"""
 
-		self.logger = logging.getLogger(__name__)
+		#self.logger = logging.getLogger(__name__)
+		# use loguru to set up the logger system
 		self.fq1 = fq1
 		self.fq2 = fq2
 		self.adapter = adapter
