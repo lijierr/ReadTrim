@@ -50,7 +50,7 @@ class qc_fastq:
 		self.fq2 = fq2
 		self.adapter = adapter
 		self.outdir = outdir
-		self.basename = sample_name
+		self.basename = basename
 		self.contin = contin
 
 		if not self.fq1 and not self.fq2:
