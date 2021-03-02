@@ -84,7 +84,7 @@ class trim_lowqual:
 			LEADING:25 TRAILING:20 SLIDINGWINDOW:{self.slide_wd} \
 			MINLEN:{self.minlen} {crop} 2>{outdir}/trimmomatic.stat'
 
-		logger.info('Start to trim reads using trimmomatic, command is {cmd}.')
+		logger.info(f'Start to trim reads using trimmomatic, command is {cmd}.')
 		gt_exe.exe_cmd(cmd, shell=True)
 
 		gt_file.check_file_exist(f'{outdir}/trimmomatic.stat', check_empty=True)

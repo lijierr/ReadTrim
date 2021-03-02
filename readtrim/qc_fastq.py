@@ -71,10 +71,10 @@ class qc_fastq:
 		if self.fq2:cmd += f' {self.fq2}'
 
 		cmd += ' 2>/dev/null'
-		logger.info('Start run FastQC, command is {cmd}.')
+		logger.info(f'Start run FastQC, command is {cmd}.')
 		gt_exe.exe_cmd(cmd, shell=True)
 		cmd = f'ls {self.fastqc_outdir}/*_fastqc.zip|xargs -t -i unzip -o -d {self.fastqc_outdir} {{}}'
-		logger.info('Start to unzip FastQC results, command is {cmd}.')
+		logger.info(f'Start to unzip FastQC results, command is {cmd}.')
 		#.format(outdir=self.fastqc_outdir)
 		gt_exe.exe_cmd(cmd, shell=True)
 		logger.info('Finished run FastQC.')
