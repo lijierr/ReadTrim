@@ -77,7 +77,8 @@ class trim_lowqual:
 		self.outfq1_un = f'{outdir}/{self.prefix}.trim.unpair.1.fq.gz'
 		self.outfq2_un = f'{outdir}/{self.prefix}.trim.unpair.2.fq.gz'
 		self.outfq_un = f'{outdir}/{self.prefix}.trim.unpair.fq.gz'
-		crop = f'CROP:{self.croplen}' if self.croplen else ''
+		crop = self.croplen and f'CROP:{self.croplen}' or ''
+		#f'CROP:{self.croplen}' if self.croplen else ''
 		cmd = f'java -jar {trim_jar} PE -threads {self.ncpu} -phred{self.phred} \
 			-trimlog {outdir}/trimmomatic.log {self.infq1} {self.infq2} \
 			{self.outfq1} {self.outfq1_un} {self.outfq2} {self.outfq2_un} \
