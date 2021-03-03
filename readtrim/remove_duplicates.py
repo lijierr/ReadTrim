@@ -66,8 +66,8 @@ class remove_dup:
 							f'{self.outdir}/fastuniq',
 							f'{self.outdir}/fastuniq/{self.basename}')[2]
 
-		self.outfq1 = f'{self.outdir}/{self.outfq1}'
-		self.outfq2 = f'{self.outdir}/{self.outfq2}'
+		self.outfq1 = f'{fastuniq_outdir}/{self.outfq1}'
+		self.outfq2 = f'{fastuniq_outdir}/{self.outfq2}'
 
 		if '.gz' in self.fq1:
 			cmd = f'gzip -fd {self.fq1} {self.fq2}'
