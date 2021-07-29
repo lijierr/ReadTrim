@@ -1,4 +1,7 @@
-0.0.2
+v0.0.2
+- Fix some minor bugs
+
+v0.0.1
 - This is a workflow for read trimming. Including modules:
 1. Qualtiy control of FASTQ reads.
 2. Remove head Ns.

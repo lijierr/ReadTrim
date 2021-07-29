@@ -2,9 +2,12 @@
 The :mod:`readtrim.qc_fastq` printing version information.
 """
 
-# Author: Jie Li <jlli6t@gmail.com>
-# License: GNU v3.0
-# Copyrigth: 2018
+__author__ = 'Jie Li'
+__copyright__ = 'Copyright 2018'
+__credits__ = 'Jie Li'
+__license__ = 'GNU v3.0'
+__maintainer__ = 'Jie Li'
+__email__ = 'jlli6t near gmail.com'
 
 import sys
 from loguru import logger

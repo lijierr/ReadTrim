@@ -2,17 +2,20 @@
 The :mod:`readtrim.Main` Main workflow of readtrim.
 """
 
-# Author: Jie Li <jlli6t@gmail.com>
-# License: GNU v3.0
-# Copyrigth: 2020
+__author__ = 'Jie Li'
+__copyright__ = 'Copyright 2018'
+__credits__ = 'Jie Li'
+__license__ = 'GNU v3.0'
+__maintainer__ = 'Jie Li'
+__email__ = 'jlli6t near gmail.com'
 
 import os
 import sys
 import argparse as ap
 import pandas as pd
-import logging
 
-logger = logging.getLogger(__name__)
+from loguru import logger
+
 from biosut import gt_file,gt_exe,gt_path
 
 from readtrim.version import Version

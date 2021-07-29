@@ -2,9 +2,9 @@
 The :mod:`readtrim.version` print and show version information.
 """
 
-# Author: Jie Li <jlli6t@gmail.com>
+# Author: Jie Li <jlli6t near gmail.com>
 # License: GNU v3.0
-# Copyrigth: 2019
+# Copyrigth: 2018
 
 from os.path import join, isfile, split, dirname
 from biosut.gt_path import abs_path
