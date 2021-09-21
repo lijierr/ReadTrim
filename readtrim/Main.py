@@ -2,12 +2,12 @@
 The :mod:`readtrim.Main` Main workflow of readtrim.
 """
 
-__author__ = 'Jie Li'
-__copyright__ = 'Copyright 2018'
-__credits__ = 'Jie Li'
-__license__ = 'GNU v3.0'
-__maintainer__ = 'Jie Li'
-__email__ = 'jlli6t near gmail.com'
+__author__ = "Jie Li"
+__copyright__ = "Copyright 2018"
+__credits__ = "Jie Li"
+__license__ = "GNU v3.0"
+__maintainer__ = "Jie Li"
+__email__ = "jlli6t near gmail.com"
 
 import os
 import sys
@@ -16,7 +16,7 @@ import pandas as pd
 
 from loguru import logger
 
-from biosut import gt_file,gt_exe,gt_path
+from biosut import gt_file, gt_exe, gt_path
 
 from readtrim.version import Version
 from readtrim.qc_fastq import qc_fastq
@@ -27,57 +27,57 @@ from readtrim.trim_lowqual import trim_lowqual
 
 def read_params(pars):
     p = ap.ArgumentParser(description=Version.show_version())
-    required_pars = p.add_argument_group('Required parameters.')
+    required_arg = p.add_argument_group("Required parameters.")
     #required_args.add_argument('--fqlist', required=True,
     #                    help='fastq file list, with head, #sample\tfq1\tfq2,\
     #                    optional columns are adap3 and adap5, \
     #                    indicates adapters from 3 end and 5 end.')
-    required_pars.add_argument('-fq1', '--fq1', required=True,
-                        help='Input FASTQ 1 file.')
-    required_pars.add_argument('-fq2', '--fq2', required=True,
-                        help='Input FASTQ 2 file.')
-    required_pars.add_argument('-o', '--outdir', required=True,
-                        help='Output directory.')
-    required_pars.add_argument('-bs', '--basename', required=True,
-                        help='Basename for outputs.')
-    optional_pars = p.add_argument_group('Optional parameters.')
-    optional_pars.add_argument('--continue', action='store_true',
-                        help='set to continue from last check point.')
-    optional_pars.add_argument('--remove_headN', action='store_true',
+    required_arg.add_argument("-fq1", "--fq1", required=True,
+                        help="Input FASTQ 1 file.")
+    required_arg.add_argument("-fq2", "--fq2", required=True,
+                        help="Input FASTQ 2 file.")
+    required_arg.add_argument("-o", "--outdir", required=True,
+                        help="Output directory.")
+    required_arg.add_argument("-bs", "--basename", required=True,
+                        help="Basename for outputs.")
+    optional_arg = p.add_argument_group("Optional parameters.")
+    optional_arg.add_argument("--continue", action="store_true",
+                        help="set to continue from last check point.")
+    optional_arg.add_argument("--remove_headN", action="store_true",
                         help='set to remove head Ns if they are exist.')
-    optional_pars.add_argument('--remove_dups', action='store_true',
+    optional_arg.add_argument("--remove_dups", action="store_true",
                         help='set to remove duplications')
-    optional_pars.add_argument('--remove_adap', action='store_true',
+    optional_arg.add_argument('--remove_adap', action='store_true',
                         help='set to remove adapters, need adap3 & 5 columns.')
-    optional_pars.add_argument('--adap3', default=None,
+    optional_arg.add_argument('--adap3', default=None,
                         help='Adapter sequence from 3 end.')
-    optional_pars.add_argument('--adap5', default=None,
+    optional_arg.add_argument('--adap5', default=None,
                         help='Adapter sequence from 5 end.')
-    optional_pars.add_argument('--slide_window', default='4:20',
+    optional_arg.add_argument('--slide_window', default='4:20',
                         help='slide_window for trimming low quality bases, default is 4:20')
-    optional_pars.add_argument('--minlen', default=75, type=int,
+    optional_arg.add_argument('--minlen', default=75, type=int,
                         help='Minimum length of read to keep, default 75.')
-    optional_pars.add_argument('--croplen', default=None,
+    optional_arg.add_argument('--croplen', default=None,
                         help='Crop reads into specific lengths, default not crop.')
-    optional_pars.add_argument('--phred', default=33, type=int,
+    optional_arg.add_argument('--phred', default=33, type=int,
                         help='Phred value of base, default 33.')
-    optional_pars.add_argument('--ncpu', default=10, type=int,
+    optional_arg.add_argument('--ncpu', default=10, type=int,
                         help='number of cpu to use, default 10')
-    par = p.parse_args()
+    arg = p.parse_args()
 
-    #fqlist = pd.read_csv(arg.fqlist, sep='\t', header=0, index_col=0)
-    #if arg.remove_adap and fqlist.shape()[1] != 4:
+    # fqlist = pd.read_csv(arg.fqlist, sep='\t', header=0, index_col=0)
+    # if arg.remove_adap and fqlist.shape()[1] != 4:
     #    logger.error('Remove adapter parameter was setted, \
     #        but didt found adapter sequences in fqlist file, please check.')
 
-    if par.remove_adap:
-        if not par.adap3 or not par.adap5:
-            logger.error('Remove adapter sequence parameter has been set, \
-                        but --adap3 and --adap5 havent been set, please check!')
+    if arg.remove_adap:
+        if not arg.adap3 or not arg.adap5:
+            logger.error("--remove_ada set, but no --adap3 and --adap5 set.")
             sys.exit()
-    return par
+    return arg
 
-class stream:
+
+class ReadTrim:
     @classmethod
     def exe(cls, pars):
         par = read_params(pars)
@@ -129,6 +129,6 @@ class stream:
         qc.fastqc()
 
     def check_dependency(par):
-        gt_exe.is_executable('fastqc')
-        if par.remove_dups:gt_exe.is_executable('fastuniq')
-        if par.remove_adap:gt_exe.is_executable('cutadapt')
+        gt_exe.is_executable("fastqc")
+        if par.remove_dups:gt_exe.is_executable("fastuniq")
+        if par.remove_adap:gt_exe.is_executable("cutadapt")

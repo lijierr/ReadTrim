@@ -79,7 +79,7 @@ class remove_dup:
 			self.fq2 = gt_file.get_file_prefix(self.fq2, include_path=True)
 			#print(self.fq1, self.fq2)
 
-		cmd = f'echo "{self.fq1}\n{self.fq2}">{fastuniq_outdir}/fq.list'
+		cmd = f'echo -e "{self.fq1}\n{self.fq2}">{fastuniq_outdir}/fq.list'
 		gt_exe.exe_cmd(cmd, shell=True)
 		logger.info(f'Start to remove duplications using fastuniq, command is {cmd}.')
 		cmd = f'fastuniq -i {fastuniq_outdir}/fq.list -t q \
