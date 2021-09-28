@@ -1,0 +1,278 @@
+
+### softwares for amplicon analysis
+# https://ccb.jhu.edu/software/FLASH/||FLASH v1.2.11
+rdp_classifier=/sw/RCC/qiime-modules/1.9.1/rdpclassifier-2.2-release/rdp_classifier-2.2.jar
+qiime1=/30days/s4506266/softwares/anaconda3/envs/Python2.7.10/bin/
+qiime2=/30days/s4506266/softwares/anaconda3/envs/qiime2-2018.11/bin/qiime
+
+## for assemblies
+flash=/90days/s4506266/softwares/FLASH-1.2.11/flash
+bbmerge=/90days/s4506266/softwares/bbmap/38.84/bbmerge.sh
+##https://github.com/voutcn/megahit
+megahit=/90days/s4506266/softwares/megahit-v1.1.3/megahit
+metaspades=/90days/s4506266/softwares/SPAdes-3.13.1-Linux/bin/metaspades.py
+plasmidspades=/90days/s4506266/softwares/SPAdes-3.13.1-Linux/bin/plasmidspades.py
+spades=/90days/s4506266/softwares/SPAdes-3.13.1-Linux/bin/spades.py
+
+## new release of spades
+spades=/90days/s4506266/softwares/spades/3.14.1/bin/metaspades.py
+
+## scaffolding & gapcloser
+gapcloser=/90days/s4506266/softwares/gapcloser-v1.12-r6/GapCloser
+gapfillter=/90days/s4506266/softwares/SSPACE/GapFiller_v1-10_linux-x86_64/GapFiller.pl
+## finishm 0.0.9
+finishm=/90days/s4506266/softwares/ruby/2.7.1/bin/finishm
+sspace_standard=/90days/s4506266/softwares/SSPACE/SSPACE-STANDARD-3.0_linux-x86_64/SSPACE_Standard
+
+
+
+###https://github.com/loneknightpy/idba
+### module load idba-ud/1.1.1
+###https://github.com/marbl/canu/releases
+## module load canu/1.9
+##wtdbg2:Version: 2.3 (20181206)
+wtdbg2=/90days/s4506266/softwares/wtdbg2/wtdbg2
+wtpoa-cns=/90days/s4506266/softwares/wtdbg2/wtpoa-cns
+
+## for assemblies evaluation
+quast=/90days/s4506266/softwares/quast-5.0.0/quast.py
+metaquast=/90days/s4506266/softwares/quast-5.0.0/metaquast.py
+
+### usual tools
+python36=/30days/s4506266/softwares/anaconda3/bin/python
+python37=/90days/s4506266/softwares/anaconda3/bin/python
+pip3=/30days/s4506266/softwares/anaconda3/bin/pip3
+pip3=/90days/s4506266/softwares/anaconda3/bin/pip3
+ipython=/30days/s4506266/softwares/anaconda3/bin/ipython
+jupyter=/30days/s4506266/softwares/anaconda3/bin/jupyter
+python2710=/30days/s4506266/softwares/anaconda3/envs/Python2.7.10/bin/python
+pip2=/30days/s4506266/softwares/anaconda3/envs/Python2.7.10/bin/pip
+## perl v5.26.2
+perl=/30days/s4506266/softwares/anaconda3/envs/prokka/bin/perl
+cpan=/30days/s4506266/softwares/anaconda3/envs/prokka/bin/cpan
+
+## ruby 
+## module load Ruby/2.1.6
+ruby version 2.7.1
+ruby=/90days/s4506266/softwares/ruby/2.7.1/bin/ruby
+
+## for fastq/a dealing
+#mfqe 0.5.0
+mfqe=/90days/s4506266/softwares/mfqe-static-x86_64-unknown-linux-musl-0.5.0/mfqe
+seqtk=/90days/s4506266/softwares/seqtk/seqtk
+
+
+### for data qc
+## cutadapt module load cutadapt/1.18
+## cutadapt-2.8
+cutadapt=/30days/s4506266/softwares/anaconda3/bin/cutadapt
+#trimmomatic=/90days/s4506266/softwares/Trimmomatic-0.36/trimmomatic-0.36.jar
+trimmomatic=/90days/s4506266/softwares/Trimmomatic-0.39/trimmomatic-0.39.jar
+# FastQC v0.11.7
+fastqc=/90days/s4506266/softwares/FastQC-v0.11.7/fastqc
+## pauvre 0.1.87 for long read QC like pacbio and oxford
+pauvre=/30days/s4506266/softwares/anaconda3/bin/pauvre
+#FastUniq 1.1
+fastuniq=/90days/s4506266/softwares/FastUniq-1.1/source/fastuniq
+
+### for cluster
+usearch=/90days/s4506266/softwares/usearch10.0.240_i86linux32/usearch10.0.240_i86linux32
+# cd-hit 4.8.1 https://github.com/weizhongli/cdhit
+cd-hit-est=/90days/s4506266/softwares/cdhit/cd-hit-est
+cd-hit=/90days/s4506266/softwares/cdhit/cd-hit
+
+### amplicon analysis platform 
+# mothur v1.40.2 https://github.com/mothur/mothur/releases
+mothur=/90days/s4506266/softwares/mothur-v1.40.2/mothur
+
+### amplicon functional predict
+picrust=/30days/s4506266/softwares/Python-2.7.12/bin
+
+### plot tools
+circos=/90days/s4506266/softwares/circos-0.69-6/bin/circos
+
+###SRA data fetch
+#cache=/90days/s4506266/softwares/sratoolkit.2.9.0-centos_linux64/download_cache/
+##sratoolkit=/90days/s4506266/softwares/sratoolkit.2.9.0-centos_linux64/bin/
+sratoolkit=/90days/s4506266/softwares/sratoolkit.2.9.2-centos_linux64/bin/
+prefetch=/90days/s4506266/softwares/sratoolkit.2.9.2-centos_linux64/bin/prefetch
+fastq-dump=/90days/s4506266/softwares/sratoolkit.2.9.2-centos_linux64/bin/fastq-dump
+cache=/90days/s4506266/softwares/sratoolkit.2.9.2-centos_linux64/download_cache/
+
+### for alignment tools
+dimond 0.9.30 202001
+## 20200218 module load diamond/0.9.30
+diamond=/90days/s4506266/softwares/diamond-v0.9.29.130/diamond
+## diamond v0.9.31.132 this version get higher identity/cover than 0.9.30
+diamond=/90days/s4506266/softwares/diamond
+pplacer=/90days/s4506266/softwares/pplacer-Linux-v1.1.alpha19/pplacer
+fxtract=/90days/s4506266/softwares/fxtract/fxtract
+smafa=/90days/s4506266/softwares/smafa-static-x86_64-unknown-linux-musl-0.5.0/smafa
+## vsearch-2.8.1 https://github.com/torognes/vsearch
+vsearch=/90days/s4506266/softwares/vsearch-2.8.1/bin/vsearch
+## 20200218 module load hmmer/3.3
+hmmer=/90days/s4506266/softwares/hmmer/3.3/bin/
+## 20200218 module load krona/2.7.1
+
+orfm=/90days/s4506266/softwares/orfm-0.7.1_Linux_x86_64/orfm
+
+## module load blast/2.9.0+
+blastp=/90days/s4506266/softwares/ncbi-blast-2.7.1+/bin/blastp
+blastn=/90days/s4506266/softwares/ncbi-blast-2.7.1+/bin/blastn
+makeblastdb=/90days/s4506266/softwares/ncbi-blast-2.7.1+/bin/makeblastdb
+makeblastdb=/90days/s4506266/softwares/ncbi-blast-2.10.0+/bin/makeblastdb
+blastp=/90days/s4506266/softwares/ncbi-blast-2.10.0+/bin/blastp
+blastn=/90days/s4506266/softwares/ncbi-blast-2.10.0+/bin/blastn
+jellyfish=/90days/s4506266/softwares/jellyfish-1.1.12/bin/jellyfish
+mummer=/90days/s4506266/softwares/MUMmer3.23/
+last=/90days/s4506266/softwares/last-1047/bin/
+
+### for mappers
+bwa=/90days/s4506266/softwares/bwa-0.7.17-r1194-dirty/bwa
+## 20200218 module load samtools/1.10
+## 20200218 module load bowtie2/2.3.4.3
+bcftools=/90days/s4506266/softwares/bcftools/1.10.2/bin/bcftools
+
+salmon=/90days/s4506266/softwares/salmon-latest_linux_x86_64/bin/salmon
+###minimap2:2.15-r906-dirty
+minimap2=/90days/s4506266/softwares/minimap2/minimap2
+# soap.coverage-2.7.7
+soap.coverage=/90days/s4506266/softwares/soap.coverage-2.7.7/soap.coverage
+# BamDeal
+bamdeal=/90days/s4506266/softwares/BamDeal-0.21/bin/BamDeal_Linux
+# coverM
+coverm=/90days/s4506266/softwares/coverm-x86_64-unknown-linux-musl-0.3.2/coverm
+## 20200218 module load bamm/201811
+bbmap=/90days/s4506266/softwares/bbmap/bbmap/bbmap.sh
+## dirseq 0.3.0 to determine the alignment direction of PE reads
+dirseq=/90days/s4506266/softwares/dirseq-0.3.0/bin/dirseq
+
+
+
+### for ORF predition
+## prodigal v2.6.3 (newest February 2016)
+## 20200218 module load prodigal/201804
+fraggenescan=/90days/s4506266/softwares/FragGeneScan1.31/run_FragGeneScan.pl
+
+## for support tools
+sqlite3=/30days/s4506266/softwares/sqlite-tools-linux-x86-3240000/sqlite3
+lftp=/90days/s4506266/softwares/lftp-4.8.4/bin/lftp
+pigz=/90days/s4506266/softwares/pigz-2.4/pigz
+parallel version 20200322
+parallel=/90days/s4506266/softwares/parallel/20200322/bin/parallel
+
+## for metagenomics OTU analysis
+## singlem 0.11.0 https://github.com/wwood/singlem
+#singlem=/30days/s4506266/softwares/anaconda3/envs/Python2.7.10/bin/singlem
+# singlem SingleM v0.13.0 migrate to python3
+singlem=/30days/s4506266/softwares/anaconda3/bin/singlem
+
+###pplacer  https://github.com/matsen/pplacer/releases
+#graftm 0.11.0
+#graftm=/30days/s4506266/softwares/anaconda3/envs/Python2.7.10/bin/graftM
+##graftm 0.13.1 with python3.6.5
+graftm=/30days/s4506266/softwares/anaconda3/bin/graftM
+graftm_db=/90days/s4506266/databases/graftm_db/
+
+### support tools
+java=/usr/bin/java
+R=/90days/s4506266/softwares/anaconda3/bin/R
+Rscript=/90days/s4506266/softwares/anaconda3/bin/Rscript
+## module load R/3.4.3
+R_libs=/90days/s4506266/softwares/R_libs
+
+## for genome annotations
+## this prokka-1.14-dev I forgot where I downloaded it, and version it printed is still 1.13.3, so I just use 1.13.3 instead of this dev version
+# module load prokka/1.13
+## 20200218 module load prokka/1.14.5
+## 20190909 update prokka 1.14.1 and relavent databases
+#prokka=/90days/s4506266/softwares/prokka-1.14.1/bin/prokka
+## prokka 1.14.6
+prokka=/30days/s4506266/softwares/anaconda3/envs/prokka/bin/prokka
+## eggnog_mapper2 based on eggnog database v5.0
+eggnog_mapper=/90days/s4506266/softwares/eggnog-mapper/2.0.1-4-g2466c1b/emapper.py
+## PfamScan 1.6
+pfamscan=/90days/s4506266/softwares/PfamScan/pfam_scan.pl
+# kofamkoala to annotate KEGG with hmm files
+kofamkoala=/90days/s4506266/softwares/kofamscan/1.2.0/exec_annotation
+
+
+## for binning
+metabat2=/90days/s4506266/softwares/metabat_v2.12.1/metabat2
+maxbin=/90days/s4506266/softwares/MaxBin-2.2.7/run_MaxBin.pl
+## checkm CheckM v1.0.12
+checkm=/30days/s4506266/softwares/anaconda3/envs/Python2.7.10/bin/checkm
+## checkm CheckM checkm-genome-1.1.0
+checkm=/30days/s4506266/softwares/anaconda3/bin/checkm
+## differential coverage mads albertsen
+differential_coverage=/90days/s4506266/softwares/MadsAlbertsen-multi-metagenome-62e7eee/
+unitem=/30days/s4506266/softwares/anaconda3/envs/Python2.7.10/bin/unitem
+## groopm module load groopm/201811
+# binsanity BinSanity-0.3.4
+binsanity=/30days/s4506266/softwares/anaconda3/bin/Binsanity
+
+## for bin improvement
+magpurify=/90days/s4506266/softwares/MAGpurify/run_qc.py
+## refineM 0.0.25
+refinem=/30days/s4506266/softwares/anaconda3/envs/Python2.7.10/bin/refinem
+## refinem 0.1.1
+refinem=/30days/s4506266/softwares/anaconda3/bin/refinem
+## drep v2.4.0
+drep=/30days/s4506266/softwares/anaconda3/bin/dRep
+
+## for trees
+fasttree=/90days/s4506266/softwares/FastTree-2.1.10/FastTree
+muscle=/90days/s4506266/softwares/muscle3.8.31_i86linux64
+# genometreetk v0.1.2 (NCBI r89)
+genometreetk=/30days/s4506266/softwares/anaconda3/envs/Python2.7.10/bin/genometreetk
+## phylorank phylorank-0.0.43
+phylorank=/30days/s4506266/softwares/anaconda3/envs/Python2.7.10/bin/phylorank
+## arb 6.0.6
+arb=/90days/s4506266/softwares/arb/bin/arb
+## iqtree-2.0-rc1
+iqtree=/90days/s4506266/softwares/iqtree/2.0-rc1-Linux/bin/iqtree
+## PhyloPhlAn 3.0
+phylophlan=/90days/s4506266/softwares/anaconda3/bin/phylophlan
+
+## for taxonomy analysis
+metaphlan2=/90days/s4506266/softwares/metaphlan2.6.0/metaphlan2.py
+## old version
+gtdbtk=/30days/s4506266/softwares/anaconda3/envs/Python2.7.10/bin/gtdbtk
+## centrifuge https://github.com/DaehwanKimLab/centrifuge # 20200121
+centrifuge=/90days/s4506266/softwares/centrifuge/bin/
+## gtdbtk v1.0.2
+gtdbtk=/30days/s4506266/softwares/anaconda3/bin/gtdbtk
+## pip install git+https://github.com/knights-lab/SHOGUN.git --no-cache-dir --upgrade
+shogun=/90days/s4506266/softwares/anaconda3/bin/shogun
+
+### for extract 16S from metagenome
+## 20200218 module load sortmerna/4.0.0
+sortmerna=/90days/s4506266/softwares/sortmerna/4.2.0/sortmerna
+
+indexdb_rna=/30days/s4506266/softwares/anaconda3/bin/indexdb_rna
+
+# for RNA-seq
+dirseq=/90days/s4506266/softwares/ruby/2.7.1/bin/dirseq
+
+### for environment support
+gcc=/30days/s4506266/softwares/GCC/gcc-5.4.0/bin/gcc
+
+
+## for genome tools
+## fastani downloaded from github 20190118
+fastani=/90days/s4506266/softwares/FastANI/1.2/fastANI
+## 20200224
+fastani=/90days/s4506266/softwares/FastANI/1.3/fastANI
+##
+fastani=/90days/s4506266/softwares/FastANI/1.3.new/bin/fastANI
+gani=/90days/s4506266/softwares/ANIcalculator_v1/ANIcalculator
+## comparem v0.1.1
+comparem=/90days/s4506266/softwares/anaconda3/bin/comparem
+
+#For ARG
+rgi=/90days/s4506266/softwares/rgi-5.1.0/rgi
+
+
+# for support
+mash=/90days/s4506266/softwares/mash-Linux64-v2.2/mash
+subread=/90days/s4506266/softwares/subread-2.0.0-Linux-x86_64/bin
