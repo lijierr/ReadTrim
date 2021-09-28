@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-#coding:utf-8
+# coding:utf-8
 
-#================================================================
-#Contact: Jie Li (jeveylijie@gmail.com)
-#Description:
-#v1.0	20180418	do FastQC of sequencing reads
+# ================================================================
+# Contact: Jie Li (jeveylijie@gmail.com)
+# Description:
+# v1.0	20180418	do FastQC of sequencing reads
 #
-#================================================================
+# ================================================================
 
 import os
 import sys
