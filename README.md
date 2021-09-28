@@ -1,3 +1,8 @@
+# Archive
+
+This repo was archived, please use [ReadTrim](https://github.com/jlli6t/ReadTrim.git) instead
+
+
 # Filter_Trimmomatic
 
 ## Introduction
