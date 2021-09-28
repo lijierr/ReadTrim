@@ -1,4 +1,4 @@
-#!/ifshk4/BC_PUB/biosoft/PIPE_RD/Package/Python-3.5.2/bin/python3
+#!/usr/bin/env python3
 #coding:utf-8
 
 """
