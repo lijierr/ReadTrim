@@ -1,12 +1,12 @@
 # Archive
 
-This repo was archived, please use [ReadTrim](https://github.com/jlli6t/ReadTrim.git) instead
+This repo was archived, is has been integrated into [ReadTrim](https://github.com/jlli6t/ReadTrim.git).
 
 
 # Filter_Trimmomatic
 
 ## Introduction
-**Filter_Trimmomatic** is a module which used for Illumina raw sequencing trimming.
+**Filter_Trimmomatic** is a module which used for Illumina raw sequencing data QC and trimming.
 
 ## Installation
 No need to install, just clone and then use it.
