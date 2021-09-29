@@ -1,6 +1,6 @@
 # Archive
 
-This repo was archived, please use [ReadTrim](https://github.com/jlli6t/ReadTrim.git) instead
+This repo was archived, it has been integrated into [ReadTrim](https://github.com/jlli6t/ReadTrim.git).
 
 # FastQC
 
