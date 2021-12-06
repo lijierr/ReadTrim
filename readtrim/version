@@ -1,12 +1,16 @@
+v0.03
+- Reorganized code.
+- Add qc stat results.
+
 v0.0.2
 - Fix some minor bugs
 
 v0.0.1
 - This is a workflow for read trimming. Including modules:
-1. Qualtiy control of FASTQ reads.
+1. QC of FASTQ reads.
 2. Remove head Ns.
 3. Remove duplicates.
-4. Remove adapters.
-5. Trim low quality bases.
-6. Quality control of trimmed FASTQ reads again.
+4. Trim adapters.
+5. Trim low quality ends.
+6. QC of trimmed FASTQ reads again.
 7. Output statistic files.
