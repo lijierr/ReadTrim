@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="205ddbc1-5aca-4372-89b1-0b374e38ba53" name="Changes" comment="" />
+    <list default="true" id="205ddbc1-5aca-4372-89b1-0b374e38ba53" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANIFEST.in" beforeDir="false" afterPath="$PROJECT_DIR$/MANIFEST.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/readtrim" beforeDir="false" afterPath="$PROJECT_DIR$/bin/readtrim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readtrim/qc_fastq.py" beforeDir="false" afterPath="$PROJECT_DIR$/readtrim/qc_fastq.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readtrim/remove_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/readtrim/remove_adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readtrim/remove_duplicates.py" beforeDir="false" afterPath="$PROJECT_DIR$/readtrim/remove_duplicates.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readtrim/trim_head_Ns.py" beforeDir="false" afterPath="$PROJECT_DIR$/readtrim/trim_head_Ns.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readtrim/trim_lowqual.py" beforeDir="false" afterPath="$PROJECT_DIR$/readtrim/trim_lowqual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readtrim/version.py" beforeDir="false" afterPath="$PROJECT_DIR$/readtrim/version.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1yRoBfO1ho7D9uISHzI6X7qBsgl" />
@@ -15,6 +39,7 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
+    <option name="foldersAlwaysOnTop" value="false" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -22,7 +47,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../1.ING/multiplot" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -41,7 +66,61 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="readtrim/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="dc1ef126-d97a-49ff-98ae-c8693be5d269">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="readtrim/master" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
       </map>
