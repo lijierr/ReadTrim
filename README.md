@@ -11,11 +11,11 @@ Installation and usage refer to [document](docs/documentation.md)
 ## Installation
 Install readtrim through pip3:
 ```
-pip3 install readtrim.**.tar.gz
+pip3 install readtrim
 ```
 
 ## Bugs
-For any bugs or problems please use Issue portal.
+For any bugs or problems please use [Issue](https://github.com/jlli6t/ReadTrim/issues) portal.
 
 ## Copyright
-Copyright 2019-2020 Jie Li. See LICENSE for further details.
+Copyright 2018-2019 Jie Li. See [LICENSE](./LICENSE) for further details.

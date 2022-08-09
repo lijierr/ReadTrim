@@ -1,0 +1,6 @@
+loguru~=0.5.1
+pandas~=1.2.3
+biosut~=2.1.1
+ReadTrim~=0.0.1
+numpy~=1.19.0
+setuptools~=41.2.0
