@@ -2,9 +2,12 @@
 The :mod:`readtrim.remove_head_Ns` remove head Ns from sequences.
 """
 
-# Author: Jie Li <jlli6t@gmail.com>
-# License: GNU v3.0
-# Copyrigth: 2019
+__author__ = 'Jie Li'
+__copyright__ = 'Copyright 2019'
+__credits__ = 'Jie Li'
+__license__ = 'GPLv3.0'
+__maintainer__ = 'Jie Li'
+__email__ = 'jlli6t near gmail.com'
 
 import re
 import gzip

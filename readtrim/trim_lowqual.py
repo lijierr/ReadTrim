@@ -2,18 +2,12 @@
 The :mod:`readtrim.trim_lowqual` trim low quality bases from reads.
 """
 
-<<<<<<< HEAD
-# Author: Jie Li <jlli6t@gmail.com>
-# License: GNU v3.0
-# Copyright: 2019
-=======
 __author__ = 'Jie Li'
 __copyright__ = 'Copyright 2018'
 __credits__ = 'Jie Li'
 __license__ = 'GPLv3.0'
 __maintainer__ = 'Jie Li'
 __email__ = 'jlli6t near gmail.com'
->>>>>>> dev
 
 import os
 import sys
