@@ -1,7 +1,7 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
-<<<<<<< HEAD
+
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
@@ -17,7 +17,7 @@
           <option value="W605" />
           <option value="E701" />
           <option value="E501" />
-=======
+
     <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <option name="ignoredErrors">
         <list>
@@ -37,7 +37,6 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="massant.diamond.*" />
->>>>>>> dev
         </list>
       </option>
     </inspection_tool>
