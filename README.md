@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ReadTrim
 [![PyPI](https://shields.io/pypi/v/readtrim.svg)](https://pypi.org/project/readtrim)
 
@@ -19,8 +20,9 @@ For any bugs or problems please use [Issue](https://github.com/jlli6t/ReadTrim/i
 
 ## Copyright
 Copyright 2018-2019 Jie Li. See [LICENSE](./LICENSE) for further details.
-=======
-# Archive
+
+
+# old readme
 
 This repo was archived, it has been integrated into [ReadTrim](https://github.com/jlli6t/ReadTrim.git).
 
@@ -28,8 +30,7 @@ This repo was archived, it has been integrated into [ReadTrim](https://github.co
 
 ## Introduction
 **FastQC** is a module which used for Illumina raw sequencing data QC.
-=======
-# Archive
+
 
 This repo was archived, is has been integrated into [ReadTrim](https://github.com/jlli6t/ReadTrim.git).
 
@@ -57,7 +58,7 @@ Use FastQC to process raw reads, do FastQC of sequencing reads
 ## Usage
 This is a demo of usage
 python3 fastQC-v1.0.py --fqlist fq.list --outdir ./test
-=======
+
 Use Trimmomatic to process raw reads, Use seqtk to stat and process clean reads, then you get high quality PE reads.
 
 --rawData_list	raw reads list file with header,SampleName<tab>FQ1<tab>FQ2<tab>Adapter,if you want to merge fq1s then, SampleName<tab>fq1,fq1<tab>fq2,fq2<Tab>Adapter, if you have two adps, then name\tq1\tq2\ta1,a2
@@ -74,4 +75,7 @@ python3 Filter_trimmomatic-1.2.py --rawData_list fq_DNA.list --read_length 151 -
 
 ## Copyright
 Copyright 2017-2018 Jie Li. See LICENSE for further details.
+
+# filterfqT
+QC raw sequencing reads, filter and trim low quality reads, remove duplications, generate stats file, and then QC again.
 
