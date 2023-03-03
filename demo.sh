@@ -1,5 +1,5 @@
-raw=/30days/s4506266/projects/7.zhengmin_comommax/1.Filter/0.remove_headN/removeN
-ot=/30days/s4506266/projects/7.zhengmin_comommax/1.Filter/readtrim
+raw=/1.Filter/0.remove_headN/removeN
+ot=/1.Filter/readtrim
 
 for i in S28 S29 S57 S58
 	do

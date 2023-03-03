@@ -14,7 +14,6 @@ import sys
 from loguru import logger
 
 
-
 class TrimLowQual:
 
     def __init__(self, infq1: str = None, infq2: str = None,
