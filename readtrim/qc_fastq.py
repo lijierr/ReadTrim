@@ -43,7 +43,7 @@ class QCFastq:
         self.fq1 = fq1
         self.fq2 = fq2
         self.adapter = adapter
-        self.outdir = bs.sure_path_exist(outdir)
+        self.outdir = bs.check_path(outdir)
         self.basename = basename
         self.contin = contin
 
